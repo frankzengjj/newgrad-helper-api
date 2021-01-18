@@ -15,7 +15,9 @@ const hpp = require('hpp')
 const rateLimit = require('express-rate-limit')
 const cors = require('cors')
 
-dotenv.config({ path: './config/config.env'})
+if (process.env.NODE_ENV === 'development') {
+    dotenv.config({ path: './config/config.env'})
+}
 // Connect to DB
 db()
 const app = express()
