@@ -24,8 +24,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node --optimize_for_size --max_old_space_size=460 --gc_interval=100 server.js",
-    "dev": "nodemon server"
+    "start": "node server.js",
+    "dev": "NODE_ENV=development nodemon server"
   },
   "author": "",
   "license": "ISC"

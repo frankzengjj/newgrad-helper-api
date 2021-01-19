@@ -17,12 +17,13 @@ const advancedResults = (model) => async (req, res, next) => {
     const limit = parseInt(req.query.limit, 10) || 25
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
-    const total = await model.countDocuments(filters)
+    const filteredTotal = await model.countDocuments(filters)
+    const totalCount = await model.countDocuments()
     query = query.skip(startIndex).limit(limit)
 
     // Pagination result
     const pagination = {}
-    if (endIndex < total) {
+    if (endIndex < filteredTotal) {
         pagination.next = {
             page: page + 1,
             limit
@@ -39,7 +40,8 @@ const advancedResults = (model) => async (req, res, next) => {
     res.advancedResults = {
         success: true,
         pagination,
-        count: results.length,
+        totalCount,
+        currentCount: results.length,
         data: results
     }
     next()
